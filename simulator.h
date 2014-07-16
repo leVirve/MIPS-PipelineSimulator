@@ -1,25 +1,29 @@
 #include "env.h"
-#include "CPU.h"
 #include "Memory.h"
+#include "Stage.h"
+#include "Register.h"
+#include "RegisterFile.h"
 
 class Simulator {
 public:
 	Simulator();
 	~Simulator();
-	
+
 	void start();
-	void test() { return; }
 private:
 
-	// Program Counter
 	UINT32 pc;
-
-	// Stack Pointer
 	UINT32 sp;
 
-	CPU* cpu;
+	Memory* iMemory;
+	Memory* dMemory;
+	RegisterFile* reg;
 
-	Memory* memory;
+	ITER cycle;
+	bool halt;
 
 	void loader();
+	void simulate();
+	void snapshotdump(ITER);
+	void errordump(ITER);
 };

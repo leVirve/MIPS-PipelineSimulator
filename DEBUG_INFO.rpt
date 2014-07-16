@@ -1,0 +1,801 @@
+
+Cycle 0:
+
+--- WB Stage ---
+Opcode : 0
+0
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 0 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 0
+Instruction: 0x00000000
+
+--- EX Stage ---
+Opcode : 0 func: 0 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 0
+R-type ALUout Result: 0 (0 op 0)
+immediate 0
+ALUout Result: 0
+Instruction: 0x00000000
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 0 func = 0
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+Imm: 0x0(0) Address: 0x0
+324 + 0 = 324
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x00000000
+
+--- IF Stage ---
+PC: 0x00000324
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000328
+Instruction: 0x00004020
+halt 0
+
+Cycle 1:
+
+--- WB Stage ---
+Opcode : 0
+0
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 0 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 0
+Instruction: 0x00000000
+
+--- EX Stage ---
+Opcode : 0 func: 0 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+R-type ALUout Result: 0 (0 op 0)
+immediate 0
+ALUout Result: 0
+Instruction: 0x00000000
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 0 func = 20
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x8
+Imm: 0x4020(16416) Address: 0x4020
+328 + 10080 = 103A8
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x00004020
+
+--- IF Stage ---
+PC: 0x00000328
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x0000032c
+Instruction: 0x2009000a
+halt 0
+
+Cycle 2:
+
+--- WB Stage ---
+Opcode : 0
+0
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 0 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+Instruction: 0x00000000
+
+--- EX Stage ---
+Opcode : 0 func: 20 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x8
+RegWrite: 1
+R-type ALUout Result: 0 (0 op 0)
+immediate 4020
+ALUout Result: 0
+Instruction: 0x00004020
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 8 func = A
+PCSrc = 0
+Rs: 0x0, Rt: 0x9, Rd: 0x0
+Imm: 0xA(10) Address: 0x9000A
+32C + 28 = 354
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x2009000a
+
+--- IF Stage ---
+PC: 0x0000032c
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000330
+Instruction: 0x00000020
+halt 0
+
+Cycle 3:
+
+--- WB Stage ---
+Opcode : 0
+0
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 0 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x8
+RegWrite: 1
+Instruction: 0x00004020
+
+--- EX Stage ---
+Opcode : 8 func: A shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x9, Rd: 0x0
+RegWrite: 2
+A + B = 0 + 10 = 10
+immediate A
+ALUout Result: A
+Instruction: 0x2009000a
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 0 func = 20
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+Imm: 0x20(32) Address: 0x20
+330 + 80 = 3B0
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x00000020
+
+--- IF Stage ---
+PC: 0x00000330
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000334
+Instruction: 0x00000022
+halt 0
+
+Cycle 4:
+
+--- WB Stage ---
+Opcode : 0
+4020
+
+--- MEM Stage ---
+ALUout 10 Data: 0
+ALUout 0 Data: 0
+Opcode : 8
+Rs: 0x0, Rt: 0x9, Rd: 0x0
+RegWrite: 2
+Instruction: 0x2009000a
+
+--- EX Stage ---
+Opcode : 0 func: 20 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+R-type ALUout Result: 0 (0 op 0)
+immediate 20
+ALUout Result: 0
+Instruction: 0x00000020
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 0 func = 22
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+Imm: 0x22(34) Address: 0x22
+334 + 88 = 3BC
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x00000022
+
+--- IF Stage ---
+PC: 0x00000334
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000338
+Instruction: 0x00000024
+halt 0
+
+Cycle 5:
+
+--- WB Stage ---
+Opcode : 8
+2009000A
+[reg 9] ALUout A
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 10 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+Instruction: 0x00000020
+
+--- EX Stage ---
+Opcode : 0 func: 22 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+R-type ALUout Result: 0 (0 op 0)
+immediate 22
+ALUout Result: 0
+Instruction: 0x00000022
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 0 func = 24
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+Imm: 0x24(36) Address: 0x24
+338 + 90 = 3C8
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x00000024
+
+--- IF Stage ---
+PC: 0x00000338
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x0000033c
+Instruction: 0x00000025
+halt 0
+
+Cycle 6:
+
+--- WB Stage ---
+Opcode : 0
+20
+ERR_WRITE_REG_ZERO[R] : 20
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 0 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+Instruction: 0x00000022
+
+--- EX Stage ---
+Opcode : 0 func: 24 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+R-type ALUout Result: 0 (0 op 0)
+immediate 24
+ALUout Result: 0
+Instruction: 0x00000024
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 0 func = 25
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+Imm: 0x25(37) Address: 0x25
+33C + 94 = 3D0
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x00000025
+
+--- IF Stage ---
+PC: 0x0000033c
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000340
+Instruction: 0x8c000018
+halt 0
+
+Cycle 7:
+
+--- WB Stage ---
+Opcode : 0
+22
+ERR_WRITE_REG_ZERO[R] : 22
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 0 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+Instruction: 0x00000024
+
+--- EX Stage ---
+Opcode : 0 func: 25 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+R-type ALUout Result: 0 (0 op 0)
+immediate 25
+ALUout Result: 0
+Instruction: 0x00000025
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 23 func = 18
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+Imm: 0x18(24) Address: 0x18
+340 + 60 = 3A0
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x8c000018
+
+--- IF Stage ---
+PC: 0x00000340
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000344
+Instruction: 0x3c0012e8
+halt 0
+
+Cycle 8:
+
+--- WB Stage ---
+Opcode : 0
+24
+ERR_WRITE_REG_ZERO[R] : 24
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 0 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 1
+Instruction: 0x00000025
+
+--- EX Stage ---
+Opcode : 23 func: 18 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 3
+A + B = 0 + 24 = 24
+B = 0immediate 18
+ALUout Result: 18
+Instruction: 0x8c000018
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = F func = 28
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x2
+Imm: 0x12E8(4840) Address: 0x12E8
+344 + 4BA0 = 4EE4
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x3c0012e8
+
+--- IF Stage ---
+PC: 0x00000344
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000348
+Instruction: 0x8c0d0000
+halt 0
+
+Cycle 9:
+
+--- WB Stage ---
+Opcode : 0
+25
+ERR_WRITE_REG_ZERO[R] : 25
+
+--- MEM Stage ---
+ALUout 24 Data: 0
+ALUout 0 Data: 0
+Opcode : 23
+[addr 24] MDR 0
+LW
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 3
+Instruction: 0x8c000018
+
+--- EX Stage ---
+Opcode : F func: 28 shamt: b
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x2
+RegWrite: 2
+immediate 12E8
+ALUout Result: 18
+Instruction: 0x3c0012e8
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 23 func = 0
+PCSrc = 0
+Rs: 0x0, Rt: 0x13, Rd: 0x0
+Imm: 0x0(0) Address: 0xD0000
+348 + 0 = 348
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x8c0d0000
+
+--- IF Stage ---
+PC: 0x00000348
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x0000034c
+Instruction: 0x01cd7820
+halt 0
+
+Cycle 10:
+########## 1
+
+--- WB Stage ---
+Opcode : 23
+8C000018
+ERR_WRITE_REG_ZERO[load] : 8C000018
+[reg 0] MDR 0
+
+--- MEM Stage ---
+ALUout 24 Data: 0
+ALUout 24 Data: 0
+Opcode : F
+Rs: 0x0, Rt: 0x0, Rd: 0x2
+RegWrite: 2
+Instruction: 0x3c0012e8
+
+--- EX Stage ---
+Opcode : 23 func: 0 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0xD, Rd: 0x0
+RegWrite: 3
+A + B = 0 + 0 = 0
+B = 0immediate 0
+ALUout Result: 0
+Instruction: 0x8c0d0000
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 0 func = 0
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+Imm: 0x0(0) Address: 0x0
+34C + 0 = 34C
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x00000000
+
+--- IF Stage ---
+PC: 0x0000034c
+ PCSrc =  0 (_Stall: 1, _Flush: 0)
+PC: 0x0000034c
+Instruction: 0x01cd7820
+halt 0
+
+Cycle 11:
+
+--- WB Stage ---
+Opcode : F
+3C0012E8
+ERR_WRITE_REG_ZERO[save] : 3C0012E8
+[reg 0] ALUout 18
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 24 Data: 0
+Opcode : 23
+[addr 0] MDR 7FFFFFFF
+LW
+Rs: 0x0, Rt: 0xD, Rd: 0x0
+RegWrite: 3
+Instruction: 0x8c0d0000
+
+--- EX Stage ---
+Opcode : 0 func: 0 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 3
+R-type ALUout Result: 0 (0 op 0)
+immediate 0
+ALUout Result: 0
+Instruction: 0x00000000
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 0 func = 20
+PCSrc = 0
+Rs: 0x14, Rt: 0x13, Rd: 0x15
+Imm: 0x7820(30752) Address: 0x1CD7820
+34C + 1E080 = 1E3CC
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x01cd7820
+
+--- IF Stage ---
+PC: 0x0000034c
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000350
+Instruction: 0x840f0002
+halt 0
+
+Cycle 12:
+
+--- WB Stage ---
+Opcode : 23
+8C0D0000
+[reg 13] MDR 7FFFFFFF
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 0 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 3
+Instruction: 0x00000000
+
+--- EX Stage ---
+Opcode : 0 func: 20 shamt: 0
+xReadData1 0(0) xReadData2 7FFFFFFF(0)
+Rs: 0xE, Rt: 0xD, Rd: 0xF
+RegWrite: 1
+R-type ALUout Result: 7FFFFFFF (0 op 2147483647)
+immediate 7820
+ALUout Result: 7FFFFFFF
+Instruction: 0x01cd7820
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 21 func = 2
+PCSrc = 0
+Rs: 0x0, Rt: 0x15, Rd: 0x0
+Imm: 0x2(2) Address: 0xF0002
+350 + 8 = 358
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x840f0002
+
+--- IF Stage ---
+PC: 0x00000350
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000354
+Instruction: 0x21ef000d
+halt 0
+
+Cycle 13:
+########## 1
+
+--- WB Stage ---
+Opcode : 0
+0
+
+--- MEM Stage ---
+ALUout 2147483647 Data: 0
+ALUout 0 Data: 0
+Opcode : 0
+Rs: 0xE, Rt: 0xD, Rd: 0xF
+RegWrite: 1
+Instruction: 0x01cd7820
+
+--- EX Stage ---
+Opcode : 21 func: 2 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0xF, Rd: 0x0
+RegWrite: 3
+A + B = 0 + 2 = 2
+B = 0immediate 2
+ALUout Result: 2
+Instruction: 0x840f0002
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 0 func = 0
+PCSrc = 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+Imm: 0x0(0) Address: 0x0
+354 + 0 = 354
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x00000000
+
+--- IF Stage ---
+PC: 0x00000354
+ PCSrc =  0 (_Stall: 1, _Flush: 0)
+PC: 0x00000354
+Instruction: 0x21ef000d
+halt 0
+
+Cycle 14:
+
+--- WB Stage ---
+Opcode : 0
+1CD7820
+
+--- MEM Stage ---
+ALUout 2 Data: 0
+ALUout 2147483647 Data: 0
+Opcode : 21
+[addr 2] MDR 7FFF
+Rs: 0x0, Rt: 0xF, Rd: 0x0
+RegWrite: 3
+Instruction: 0x840f0002
+
+--- EX Stage ---
+Opcode : 0 func: 0 shamt: 0
+xReadData1 0(7FFFFFFF) xReadData2 0(7FFFFFFF)
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 3
+R-type ALUout Result: 0 (0 op 0)
+immediate 0
+ALUout Result: 0
+Instruction: 0x00000000
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 8 func = D
+PCSrc = 0
+Rs: 0x15, Rt: 0x15, Rd: 0x0
+Imm: 0xD(13) Address: 0x1EF000D
+354 + 34 = 388
+ReadData1: 0x7FFFFFFF	ReadData2: 0x7FFFFFFF
+Instruction: 0x21ef000d
+
+--- IF Stage ---
+PC: 0x00000354
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000358
+Instruction: 0x3c0b0000
+halt 0
+
+Cycle 15:
+
+--- WB Stage ---
+Opcode : 21
+840F0002
+[reg 15] MDR 7FFF
+
+--- MEM Stage ---
+ALUout 0 Data: 0
+ALUout 2 Data: 0
+Opcode : 0
+Rs: 0x0, Rt: 0x0, Rd: 0x0
+RegWrite: 3
+Instruction: 0x00000000
+
+--- EX Stage ---
+Opcode : 8 func: D shamt: 0
+xReadData1 7FFF(0) xReadData2 7FFFFFFF(0)
+Rs: 0xF, Rt: 0xF, Rd: 0x0
+RegWrite: 2
+A + B = 32767 + 13 = 32780
+immediate D
+ALUout Result: 800C
+Instruction: 0x21ef000d
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = F func = 0
+PCSrc = 0
+Rs: 0x0, Rt: 0x11, Rd: 0x0
+Imm: 0x0(0) Address: 0xB0000
+358 + 0 = 358
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x3c0b0000
+
+--- IF Stage ---
+PC: 0x00000358
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x0000035c
+Instruction: 0x816c0001
+halt 0
+
+Cycle 16:
+
+--- WB Stage ---
+Opcode : 0
+0
+
+--- MEM Stage ---
+ALUout 32780 Data: 0
+ALUout 0 Data: 0
+Opcode : 8
+Rs: 0xF, Rt: 0xF, Rd: 0x0
+RegWrite: 2
+Instruction: 0x21ef000d
+
+--- EX Stage ---
+Opcode : F func: 0 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0xB, Rd: 0x0
+RegWrite: 2
+immediate 0
+ALUout Result: 800C
+Instruction: 0x3c0b0000
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 20 func = 1
+PCSrc = 0
+Rs: 0x11, Rt: 0x12, Rd: 0x0
+Imm: 0x1(1) Address: 0x16C0001
+35C + 4 = 360
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x816c0001
+
+--- IF Stage ---
+PC: 0x0000035c
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000360
+Instruction: 0x900b0020
+halt 0
+
+Cycle 17:
+
+--- WB Stage ---
+Opcode : 8
+21EF000D
+[reg 15] ALUout 800C
+
+--- MEM Stage ---
+ALUout 32780 Data: 0
+ALUout 32780 Data: 0
+Opcode : F
+Rs: 0x0, Rt: 0xB, Rd: 0x0
+RegWrite: 2
+Instruction: 0x3c0b0000
+
+--- EX Stage ---
+Opcode : 20 func: 1 shamt: 0
+xReadData1 800C(0) xReadData2 0(0)
+Rs: 0xB, Rt: 0xC, Rd: 0x0
+RegWrite: 3
+A + B = 32780 + 1 = 32781
+B = 0immediate 1
+ALUout Result: 800D
+Instruction: 0x816c0001
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 24 func = 20
+PCSrc = 0
+Rs: 0x0, Rt: 0x11, Rd: 0x0
+Imm: 0x20(32) Address: 0xB0020
+360 + 80 = 3E0
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x900b0020
+
+--- IF Stage ---
+PC: 0x00000360
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000364
+Instruction: 0x840c000a
+halt 0
+
+Cycle 18:
+
+--- WB Stage ---
+Opcode : F
+3C0B0000
+[reg 15] ALUout 800C
+
+--- MEM Stage ---
+ALUout 32781 Data: 0
+ALUout 32780 Data: 0
+Opcode : 20
+Rs: 0xB, Rt: 0xC, Rd: 0x0
+RegWrite: 3
+Instruction: 0x816c0001
+
+--- EX Stage ---
+Opcode : 24 func: 20 shamt: 0
+xReadData1 0(0) xReadData2 0(0)
+Rs: 0x0, Rt: 0xB, Rd: 0x0
+RegWrite: 3
+A + B = 0 + 32 = 32
+B = 0immediate 20
+ALUout Result: 20
+Instruction: 0x900b0020
+
+--- ID Stage ---
+<<<<0>>>>
+Opcode = 21 func = A
+PCSrc = 0
+Rs: 0x0, Rt: 0x12, Rd: 0x0
+Imm: 0xA(10) Address: 0xC000A
+364 + 28 = 38C
+ReadData1: 0x0	ReadData2: 0x0
+Instruction: 0x840c000a
+
+--- IF Stage ---
+PC: 0x00000364
+ PCSrc =  0 (_Stall: 0, _Flush: 0)
+PC: 0x00000368
+Instruction: 0x000c58c3
+halt 0
+
+Cycle 19:
+########## 1
+Smulation ends.
