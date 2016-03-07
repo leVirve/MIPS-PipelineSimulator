@@ -20,7 +20,7 @@ MemoryAccessStage.o: MemoryAccessStage.cpp
 	g++ -c MemoryAccessStage.cpp
 
 ExecuteStage.o: ExecuteStage.cpp
-	g++ -c ExecuteStage.cpp	
+	g++ -c ExecuteStage.cpp
 
 Memory.o: Memory.cpp
 	g++ -c Memory.cpp

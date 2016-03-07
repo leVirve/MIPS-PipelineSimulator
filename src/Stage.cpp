@@ -14,19 +14,19 @@ Stage* Stage::StageFetch = NULL;
 
 Stage* Stage::GetStage(StageId id)
 {
-	switch (id) {
+    switch (id) {
 #define CASE(X)	\
-		case X: \
-			if (Stage ## X == NULL) Stage ## X = new X ## Stage; \
-			return Stage ## X
-		CASE(WriteBack);
-		CASE(MemoryAccess);
-		CASE(Execute);
-		CASE(Decode);
-		CASE(Fetch);
+        case X: \
+                if (Stage ## X == NULL) Stage ## X = new X ## Stage; \
+        return Stage ## X
+        CASE(WriteBack);
+        CASE(MemoryAccess);
+        CASE(Execute);
+        CASE(Decode);
+        CASE(Fetch);
 #undef CASE
 
-	default:
-		return 0;
-	}
+        default:
+        return 0;
+    }
 }

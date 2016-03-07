@@ -6,24 +6,27 @@
 
 class Simulator {
 public:
-	Simulator();
-	~Simulator();
+    Simulator(int argc, const char** argv);
+    ~Simulator();
 
-	void start();
+    void start();
 private:
 
-	UINT32 pc;
-	UINT32 sp;
+    string instr_image;
+    string data_image;
 
-	Memory* iMemory;
-	Memory* dMemory;
-	RegisterFile* reg;
+    UINT32 pc;
+    UINT32 sp;
 
-	ITER cycle;
-	bool halt;
+    Memory* iMemory;
+    Memory* dMemory;
+    RegisterFile* reg;
 
-	void loader();
-	void simulate();
-	void snapshotdump(ITER);
-	void errordump(ITER);
+    ITER cycle;
+    bool halt;
+
+    void loader();
+    void simulate();
+    void snapshotdump(ITER);
+    void errordump(ITER);
 };
