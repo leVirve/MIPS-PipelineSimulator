@@ -30,35 +30,37 @@ ExecuteStage::ExecuteStage() :
     this->reg = RegisterFile::getInstance();
 }
 
+unsigned int exe_readdata1 = 0, exe_readdata2 = 0;
+
 char* ExecuteStage::check()
 {
 	char* inp = new char[1000];
 	char* ip = new char[20];
 	sprintf(inp, "%s", dedecode::de(_instruction));
 	if (registers["EXE RegWrite"] == 1 && registers["EXE Rd"] != 0 && registers["EXE Rd"] == _Rs)
-		sprintf(ip, " fwd_EX-DM_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = registers["ALUout"];
+		sprintf(ip, " fwd_EX-DM_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["ALUout"];
 	else if (registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == _Rs)
-		sprintf(ip, " fwd_EX-DM_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = registers["ALUout"];
+		sprintf(ip, " fwd_EX-DM_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["ALUout"];
 	else if ((_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03) && registers["MEM RegWrite"] == 1 && registers["MEM Rd"] != 0 && registers["MEM Rd"] == _Rs)
-		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = registers["MEM ALUout"];
+		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MEM ALUout"];
 	else if ((_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03) && registers["MEM RegWrite"] == 2 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rs)
-		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = registers["MEM ALUout"];
+		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MEM ALUout"];
 	else if (registers["MEM RegWrite"] == 3 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rs)
-		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = registers["MDR"];
+		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MDR"];
     else
-		ReadData1 = reg->getRegister(_Rs);
+		exe_readdata1 = reg->getRegister(_Rs);
 	if ((_RegWrite==1||_RegWrite==4) && registers["EXE RegWrite"] == 1 && registers["EXE Rd"] != 0 && registers["EXE Rd"] == _Rt)
-		sprintf(ip, " fwd_EX-DM_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = registers["ALUout"];
+		sprintf(ip, " fwd_EX-DM_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["ALUout"];
 	else if ((_RegWrite==1||_RegWrite==4) && registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == _Rt)
-		sprintf(ip, " fwd_EX-DM_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = registers["ALUout"];
+		sprintf(ip, " fwd_EX-DM_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["ALUout"];
 	else if ((_RegWrite==1||_RegWrite==4) && (_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03 && !(func == 0x08 && _Op == 0x0)) && registers["MEM RegWrite"] == 1 && registers["MEM Rd"] != 0 && registers["MEM Rd"] == _Rt)
-		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = registers["MEM ALUout"];
+		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["MEM ALUout"];
 	else if ((_RegWrite==1||_RegWrite==4) && (_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03 && !(func == 0x08 && _Op == 0x0)) && registers["MEM RegWrite"] == 2 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rt)
-		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = registers["MEM ALUout"];
+		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["MEM ALUout"];
 	else if ((_RegWrite==1||_RegWrite==4) && registers["MEM RegWrite"] == 3 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rt)
-		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = registers["MDR"];
+		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["MDR"];
     else
-        ReadData2 = reg->getRegister(_Rt);
+		exe_readdata2 = reg->getRegister(_Rt);
 	return inp ;
 }
 
@@ -75,6 +77,9 @@ bool ExecuteStage::execute()
 	func_ = func;
 	RegWrite = _RegWrite;
     instruction = _instruction;
+
+    ReadData1 = exe_readdata1;
+    ReadData2 = exe_readdata2;
 
 	xReadData1 = ReadData1;
 	xReadData2 = ReadData2;

@@ -24,6 +24,9 @@ DecodeStage::DecodeStage() :
 	ReadData2 (registers["ReadData2"]) {
 	this->reg = RegisterFile::getInstance();
 }
+
+unsigned int _readdata1 = 0, _readdata2 = 0;
+
 char* DecodeStage::check()
 {
     // branch
@@ -62,34 +65,34 @@ char* DecodeStage::check()
 
     if(!Stall){
 		if (registers["EXE RegWrite"] == 1 && registers["EXE Rd"] != 0 && registers["EXE Rd"] == iRs && (iOp == 0x05 || iOp == 0x04))
-			sprintf(ip, " fwd_EX-DM_rs_$%d", iRs), strcat(inp, ip), ReadData1 = registers["ALUout"];
+			sprintf(ip, " fwd_EX-DM_rs_$%d", iRs), strcat(inp, ip), ReadData1 = _readdata1 = registers["ALUout"];
 		else if ((iOp == 0x05 || iOp == 0x04) && registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == iRs)
-			sprintf(ip, " fwd_EX-DM_rs_$%d", iRs), strcat(inp, ip), ReadData1 = registers["ALUout"];
+			sprintf(ip, " fwd_EX-DM_rs_$%d", iRs), strcat(inp, ip), ReadData1 = _readdata1 = registers["ALUout"];
 		else if (registers["MEM RegWrite"] == 3 && registers["MEM instruction"] != 0x0 && registers["MEM Rt"] == iRs)
-			ReadData1 = registers["MDR"];
+			ReadData1 = _readdata1 = registers["MDR"];
 		else if (registers["MEM RegWrite"] == 2 && registers["MEM instruction"] != 0x0 && registers["MEM Rt"] == iRs)
-			ReadData1 = registers["MEM ALUout"];
+			ReadData1 = _readdata1 = registers["MEM ALUout"];
         else if (registers["MEM RegWrite"] == 1 && registers["MEM instruction"] != 0x0 && registers["MEM Rd"] == iRs)
-			ReadData1 = registers["MEM ALUout"];
+			ReadData1 = _readdata1 = registers["MEM ALUout"];
         else
-			ReadData1 = reg->getRegister(iRs);
+			_readdata1 = reg->getRegister(iRs);  // TODO: found !!!!!!!!!!!!!
 		if (registers["EXE RegWrite"] == 1 && registers["EXE Rd"] != 0 && registers["EXE Rd"] == iRt && (iOp == 0x05 || iOp == 0x04))
-			sprintf(ip, " fwd_EX-DM_rt_$%d", iRt), strcat(inp, ip), ReadData2 = registers["ALUout"];
+			sprintf(ip, " fwd_EX-DM_rt_$%d", iRt), strcat(inp, ip), ReadData2 = _readdata2 = registers["ALUout"];
 		else if ((iOp == 0x05 || iOp == 0x04) && registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == iRt)
-			sprintf(ip, " fwd_EX-DM_rt_$%d", iRt), strcat(inp, ip), ReadData2 = registers["ALUout"];
+			sprintf(ip, " fwd_EX-DM_rt_$%d", iRt), strcat(inp, ip), ReadData2 = _readdata2 = registers["ALUout"];
 		else if (registers["MEM RegWrite"] == 3 && registers["MEM instruction"] != 0x0 && registers["MEM Rt"] == iRt)
-			ReadData2 = registers["MDR"];
+			ReadData2 = _readdata2 = registers["MDR"];
 		else if (registers["MEM RegWrite"] == 2 && registers["MEM instruction"] != 0x0 && registers["MEM Rt"] == iRt)
-			ReadData2 = registers["MEM ALUout"];
+			ReadData2 = _readdata2 = registers["MEM ALUout"];
 		else if (registers["MEM RegWrite"] == 1 && registers["MEM instruction"] != 0x0 && registers["MEM Rd"] == iRt)
-			ReadData2 = registers["MEM ALUout"];
-		else
-			ReadData2 = reg->getRegister(iRt);
-		if (iOp == 0x04) if (ReadData1 == ReadData2) PCtemp = _pc + BranchAdrr(iimmediate), PCSrcD = PC_BRANCH;
-		if (iOp == 0x05) if (ReadData1 != ReadData2) PCtemp = _pc + BranchAdrr(iimmediate), PCSrcD = PC_BRANCH;
+			ReadData2 = _readdata2 = registers["MEM ALUout"];
+        else
+			_readdata2 = reg->getRegister(iRt);
+		if (iOp == 0x04) if (_readdata1 == _readdata2) PCtemp = _pc + BranchAdrr(iimmediate), PCSrcD = PC_BRANCH;
+		if (iOp == 0x05) if (_readdata1 != _readdata2) PCtemp = _pc + BranchAdrr(iimmediate), PCSrcD = PC_BRANCH;
         // Jump
         Flush = 0;
-        if (iOp == 0x00 && ifunc == 0x08) PCtemp = pcCarry = ReadData1, PCSrcD = PC_JUMP; // jr
+        if (iOp == 0x00 && ifunc == 0x08) PCtemp = pcCarry = _readdata1, PCSrcD = PC_JUMP; // jr
 		if (iOp == 0x02) PCtemp = JumpAddr(iaddress, _pc), PCSrcD = PC_JUMP; // j
 		if (iOp == 0x03) PCtemp = JumpAddr(iaddress, _pc), PCSrcD = PC_JUMP; // jal
 
@@ -131,6 +134,9 @@ bool DecodeStage::execute()
         address=iaddress;
         RegWrite=iRegWrite;
     }
+    ReadData1 = _readdata1;
+    ReadData2 = _readdata2;
+
 	/*
 	if (registers["MEM RegWrite"] && registers["MEM Rd"] != 0 && registers["MEM Rd"] == Rs) {
 		printf("ID ForwadA = 10\n");
