@@ -1,0 +1,39 @@
+#pragma once
+
+enum INSTR { NOP = 0x0 };
+enum OP {
+    RTYPE = 0x00,
+    JAL   = 0x03,
+    J     = 0x02,
+    BNE   = 0x05,
+    BEQ   = 0x04,
+    ADDI  = 0x08,
+    ANDI  = 0x0C,
+    ORI   = 0x0D,
+    NORI  = 0x0E,
+    SLTI  = 0x0A,
+    LUI   = 0x0F,
+    SB    = 0x28,
+    SH    = 0x29,
+    SW    = 0x2B,
+    LB    = 0x20,
+    LBU   = 0x24,
+    LH    = 0x21,
+    LHU   = 0x25,
+    LW    = 0x23,
+    HALT  = 0x3F
+};
+enum func {
+    ADD  = 0x20,
+    SUB  = 0x22,
+    AND  = 0x24,
+    OR   = 0x25,
+    XOR  = 0x26,
+    NOR  = 0x27,
+    NAND = 0x28,
+    SLT  = 0x2A,
+    SRL  = 0x02,
+    SRA  = 0x03,
+    JR   = 0x08,
+    SLL  = 0x00
+};

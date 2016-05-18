@@ -41,6 +41,11 @@ char* ExecuteStage::check()
 		sprintf(ip, " fwd_EX-DM_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["ALUout"];
 	else if (registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == _Rs)
 		sprintf(ip, " fwd_EX-DM_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["ALUout"];
+	else if (
+        (_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03 && _Op != LUI)
+        && registers["MEM RegWrite"] == 1
+        && registers["MEM Rd"] != 0
+        && registers["MEM Rd"] == _Rs)
 	else if ((_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03) && registers["MEM RegWrite"] == 1 && registers["MEM Rd"] != 0 && registers["MEM Rd"] == _Rs)
 		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MEM ALUout"];
 	else if ((_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03) && registers["MEM RegWrite"] == 2 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rs)
@@ -139,6 +144,8 @@ void ExecuteStage::switcher()
 	case 0x0D: ALUout =   A | immediate;  WriteReg = Rt; break;
 	case 0x0E: ALUout = ~(A | immediate); WriteReg = Rt; break;
 	case 0x0A: ALUout = a < signImm ? 1 : 0;  WriteReg = Rt; printf("SLTI ----- >%d %d\n", a, signImm); break;
+    case LUI: //miss this !
+        ALUout = (immediate << 16); WriteReg = Rt; break;
 	default: break;
 	}
 	printf("immediate %X\n", immediate);

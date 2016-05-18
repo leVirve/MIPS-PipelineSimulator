@@ -2,6 +2,7 @@
 #define __SATGE_H__
 
 #include "env.h"
+#include "common.h"
 #include "dedecode.h"
 
 #define PC_PLUS4 0
