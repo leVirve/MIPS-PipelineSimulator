@@ -54,7 +54,17 @@ char* DecodeStage::check()
 	char* inp = new char[1000];
 	char* ip = new char[20];
 	sprintf(inp, "%s", dedecode::de(_instruction));
-    if (registers["ID Op"] != 0x3F && registers["ID RegWrite"] == 3 && (registers["ID Rt"] == iRs || (registers["ID Rt"] == iRt) && iRegWrite != 2) && registers["ID Rt"] != 0)
+    if (registers["ID Op"] != 0x3F
+        && iRegWrite != 3 // for not Load-type
+        && registers["ID RegWrite"] == 3
+        && (registers["ID Rt"] == iRs || (registers["ID Rt"] == iRt) && iRegWrite != 2)
+        && registers["ID Rt"] != 0)
+        strcat(inp, " to_be_stalled"), Stall = 1;
+    else if (registers["ID Op"] != 0x3F
+        && iRegWrite == 3 // for Load-type
+        && registers["ID RegWrite"] == 3
+        && (registers["ID Rt"] == iRs && iRegWrite != 2)
+        && registers["ID Rt"] != 0)
         strcat(inp, " to_be_stalled"), Stall = 1;
     else if (iOp == 0x0 && ifunc == 0x08 && registers["EXE RegWrite"] == 3 && registers["EXE Rt"] == iRs && registers["EXE Rt"] != 0)
         strcat(inp, " to_be_stalled"), Stall = 1;
