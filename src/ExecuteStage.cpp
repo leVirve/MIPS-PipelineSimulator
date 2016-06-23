@@ -50,6 +50,8 @@ char* ExecuteStage::check()
         && registers["MEM RegWrite"] == 1
         && registers["MEM Rd"] != 0
         && registers["MEM Rd"] == _Rs
+        && registers["MEM func"] != JR
+        && !(_Op == 0 && func == JR)
         && !(_Op == 0 && (func == SLL || func == SRL || func == SRA)))
         sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MEM ALUout"];
     else if (
@@ -57,21 +59,25 @@ char* ExecuteStage::check()
         && registers["MEM RegWrite"] == 2
         && registers["MEM Rt"] != 0
         && registers["MEM Rt"] == _Rs
+        && !(_Op == 0 && func == JR)
         && !(_Op == 0 && (func == SLL || func == SRL || func == SRA)))
         sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MEM ALUout"];
-    else if (registers["MEM RegWrite"] == 3 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rs
+    else if (registers["MEM RegWrite"] == 3
+        && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rs
         && !(_Op == 0 && (func == SLL || func == SRL || func == SRA))
+        && !(_Op == 0 && func == JR)
         && _Op != LUI)
         sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MDR"];
     else if (registers["MEM Op"] == JAL && _Rs == 31)
-        sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = reg->getRegister(31);
+        sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["PCtemp"];
     else
 		exe_readdata1 = reg->getRegister(_Rs);
 	if ((_RegWrite==1||_RegWrite==4) && registers["EXE RegWrite"] == 1 && registers["EXE Rd"] != 0 && registers["EXE Rd"] == _Rt)
 		sprintf(ip, " fwd_EX-DM_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["ALUout"];
 	else if ((_RegWrite==1||_RegWrite==4) && registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == _Rt)
 		sprintf(ip, " fwd_EX-DM_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["ALUout"];
-	else if ((_RegWrite==1||_RegWrite==4) && (_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03 && !(func == 0x08 && _Op == 0x0)) && registers["MEM RegWrite"] == 1 && registers["MEM Rd"] != 0 && registers["MEM Rd"] == _Rt)
+	else if ((_RegWrite==1||_RegWrite==4) && (_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03 && !(func == 0x08 && _Op == 0x0)) && registers["MEM RegWrite"] == 1 && registers["MEM Rd"] != 0 && registers["MEM Rd"] == _Rt
+        && registers["MEM func"] != JR)
 		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["MEM ALUout"];
 	else if ((_RegWrite==1||_RegWrite==4) && (_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03 && !(func == 0x08 && _Op == 0x0)) && registers["MEM RegWrite"] == 2 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rt)
 		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["MEM ALUout"];
@@ -161,6 +167,9 @@ void ExecuteStage::switcher()
 	case 0x0A: ALUout = a < signImm ? 1 : 0;  WriteReg = Rt; printf("SLTI ----- >%d %d\n", a, signImm); break;
     case LUI: //miss this !
         ALUout = (immediate << 16); WriteReg = Rt; break;
+    case 0x02:
+        ALUout = A;
+        break;
 	default: break;
 	}
 	printf("immediate %X\n", immediate);

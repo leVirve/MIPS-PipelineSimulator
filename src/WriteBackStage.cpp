@@ -33,7 +33,8 @@ bool WriteBackStage::execute()
     MDR = _MDR;
 	switch (_Op) {
 	case 0x00: // R-type
-		if(_WriteReg != 0) reg->setRegister(_WriteReg, _ALUout);
+		if(_WriteReg != 0 && _func != JR)
+            reg->setRegister(_WriteReg, _ALUout);
 		else if(instruction != 0x0 && _WriteReg == 0 && (instruction & 0x3F) != 0x08) err_registers[ERR_WRITE_REG_ZERO] = 1, printf("ERR_WRITE_REG_ZERO[R] : %X\n", _instruction);
 		break;
 	case 0x23: case 0x21: case 0x25: case 0x20: case 0x24: // load

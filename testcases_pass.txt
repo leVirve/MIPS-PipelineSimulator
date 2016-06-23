@@ -1,23 +1,23 @@
-archi01: [31mFail on snapshot(B[m
+archi01: [32mPass!(B[m
 archi02: [31mFail on snapshot(B[m
 archi06: [32mPass!(B[m
-archi08: [31mFail on snapshot(B[m
+archi08: [32mPass!(B[m
 archi09: [32mPass!(B[m
 archi10: [32mPass!(B[m
 archi11: [31mFail on snapshot(B[m
 archi12: [32mPass!(B[m
 archi13: [32mPass!(B[m
-archi15: [31mFail on snapshot(B[m
-archi17: [31mFail on snapshot(B[m
+archi15: [32mPass!(B[m
+archi17: [32mPass!(B[m
 archi20: [31mFail on snapshot(B[m
 archi22: [32mPass!(B[m
 archi23: [32mPass!(B[m
 archi24: [32mPass!(B[m
 archi25: [31mFail on snapshot(B[m
-archi26: [31mFail on snapshot(B[m
-archi27: [31mFail on snapshot(B[m
+archi26: [32mPass!(B[m
+archi27: [32mPass!(B[m
 archi29: [31mFail on snapshot(B[m
-archi30: [31mFail on snapshot(B[m
+archi30: [32mPass!(B[m
 archi31: [32mPass!(B[m
 archi32: [31mFail on snapshot(B[m
 archi33: [32mPass!(B[m
@@ -39,4 +39,4 @@ pipeline2: [32mPass!(B[m
 pipeline3: [32mPass!(B[m
 pipeline4: [32mPass!(B[m
 pipeline5: [32mPass!(B[m
-[32mPass: 26 / 41(B[m
+[32mPass: 33 / 41(B[m

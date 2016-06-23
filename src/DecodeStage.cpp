@@ -55,9 +55,15 @@ char* DecodeStage::check()
 	char* ip = new char[20];
 	sprintf(inp, "%s", dedecode::de(_instruction));
     if (registers["ID Op"] != 0x3F
-        && iRegWrite != 3 // for not Load-type
+        && iRegWrite != 3 && !(iOp == 0 && ifunc == JR) // for not Load-type nor JR
         && registers["ID RegWrite"] == 3
         && (registers["ID Rt"] == iRs || (registers["ID Rt"] == iRt) && iRegWrite != 2)
+        && registers["ID Rt"] != 0)
+        strcat(inp, " to_be_stalled"), Stall = 1;
+    else if (registers["ID Op"] != 0x3F
+        && iOp == 0 && ifunc == JR // for JR
+        //&& registers["ID RegWrite"] == 3
+        && registers["ID Rt"] == iRs
         && registers["ID Rt"] != 0)
         strcat(inp, " to_be_stalled"), Stall = 1;
     else if (registers["ID Op"] != 0x3F
@@ -80,6 +86,8 @@ char* DecodeStage::check()
 			sprintf(ip, " fwd_EX-DM_rs_$%d", iRs), strcat(inp, ip), ReadData1 = _readdata1 = registers["ALUout"];
 		else if ((iOp == 0x05 || iOp == 0x04) && registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == iRs)
 			sprintf(ip, " fwd_EX-DM_rs_$%d", iRs), strcat(inp, ip), ReadData1 = _readdata1 = registers["ALUout"];
+		else if (iOp == 0 && ifunc == JR && registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == iRs)
+            sprintf(ip, " fwd_EX-DM_rs_$%d", iRs), strcat(inp, ip), ReadData1 = _readdata1 = registers["ALUout"];
 		else if (registers["MEM RegWrite"] == 3 && registers["MEM instruction"] != 0x0 && registers["MEM Rt"] == iRs)
 			ReadData1 = _readdata1 = registers["MDR"];
 		else if (registers["MEM RegWrite"] == 2 && registers["MEM instruction"] != 0x0 && registers["MEM Rt"] == iRs)
@@ -108,6 +116,7 @@ char* DecodeStage::check()
 		if (iOp == 0x02) PCtemp = JumpAddr(iaddress, _pc), PCSrcD = PC_JUMP; // j
 		if (iOp == 0x03) PCtemp = JumpAddr(iaddress, _pc), PCSrcD = PC_JUMP; // jal
 
+        registers["PCtemp"] = PCtemp;
         if(iOp == 0x05||iOp == 0x04){
 			if (PCSrcD == PC_BRANCH/*&&_pc!=PCtemp*/) Flush = 1; /*** WTF!!!!!!!!!!! TA is THUNDERING */
         }
