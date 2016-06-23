@@ -63,6 +63,8 @@ char* ExecuteStage::check()
         && !(_Op == 0 && (func == SLL || func == SRL || func == SRA))
         && _Op != LUI)
         sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MDR"];
+    else if (registers["MEM Op"] == JAL && _Rs == 31)
+        sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = reg->getRegister(31);
     else
 		exe_readdata1 = reg->getRegister(_Rs);
 	if ((_RegWrite==1||_RegWrite==4) && registers["EXE RegWrite"] == 1 && registers["EXE Rd"] != 0 && registers["EXE Rd"] == _Rt)
@@ -75,6 +77,8 @@ char* ExecuteStage::check()
 		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["MEM ALUout"];
 	else if ((_RegWrite==1||_RegWrite==4) && registers["MEM RegWrite"] == 3 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rt)
 		sprintf(ip, " fwd_DM-WB_rt_$%d", _Rt), strcat(inp, ip), ReadData2 = exe_readdata2 = registers["MDR"];
+    else if (registers["MEM Op"] == JAL && _Rt == 31)
+        sprintf(ip, " fwd_DM-WB_rt_$%d", _Rs), strcat(inp, ip), ReadData2 = exe_readdata2 = reg->getRegister(31);
     else
 		exe_readdata2 = reg->getRegister(_Rt);
 	return inp ;
