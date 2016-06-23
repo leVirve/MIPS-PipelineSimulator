@@ -143,7 +143,7 @@ bool DecodeStage::execute()
         Op=iOp;
         func=ifunc;
         shamt=ishamt;
-        immediate=iimmediate;
+        immediate=iimmediate << 16 >> 16;
         address=iaddress;
         RegWrite=iRegWrite;
     }
