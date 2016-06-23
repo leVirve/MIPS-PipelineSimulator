@@ -37,23 +37,28 @@ char* ExecuteStage::check()
 	char* inp = new char[1000];
 	char* ip = new char[20];
 	sprintf(inp, "%s", dedecode::de(_instruction));
-	if (registers["EXE RegWrite"] == 1 && registers["EXE Rd"] != 0 && registers["EXE Rd"] == _Rs)
+	if (registers["EXE RegWrite"] == 1 && registers["EXE Rd"] != 0 && registers["EXE Rd"] == _Rs
+        && !(_Op == 0 && (func == SLL || func == SRL || func == SRA)))
 		sprintf(ip, " fwd_EX-DM_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["ALUout"];
-	else if (registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == _Rs)
+	else if (registers["EXE RegWrite"] == 2 && registers["EXE Rt"] != 0 && registers["EXE Rt"] == _Rs
+        && !(_Op == 0 && (func == SLL || func == SRL || func == SRA)))
 		sprintf(ip, " fwd_EX-DM_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["ALUout"];
 	else if (
         (_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03 && _Op != LUI)
         && registers["MEM RegWrite"] == 1
         && registers["MEM Rd"] != 0
-        && registers["MEM Rd"] == _Rs)
+        && registers["MEM Rd"] == _Rs
+        && !(_Op == 0 && (func == SLL || func == SRL || func == SRA)))
 		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MEM ALUout"];
 	else if (
         (_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03)
         && registers["MEM RegWrite"] == 2
         && registers["MEM Rt"] != 0
-        && registers["MEM Rt"] == _Rs)
+        && registers["MEM Rt"] == _Rs
+        && !(_Op == 0 && (func == SLL || func == SRL || func == SRA)))
 		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MEM ALUout"];
-	else if (registers["MEM RegWrite"] == 3 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rs)
+	else if (registers["MEM RegWrite"] == 3 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rs
+        && !(_Op == 0 && (func == SLL || func == SRL || func == SRA)))
 		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MDR"];
     else
 		exe_readdata1 = reg->getRegister(_Rs);
