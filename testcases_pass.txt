@@ -1,0 +1,42 @@
+archi01: [31mFail on snapshot(B[m
+archi02: [31mFail on snapshot(B[m
+archi06: [32mPass!(B[m
+archi08: [31mFail on snapshot(B[m
+archi09: [32mPass!(B[m
+archi10: [31mFail on snapshot(B[m
+archi11: [31mFail on snapshot(B[m
+archi12: [32mPass!(B[m
+archi13: [32mPass!(B[m
+archi15: [31mFail on snapshot(B[m
+archi17: [31mFail on snapshot(B[m
+archi20: [31mFail on snapshot(B[m
+archi22: [32mPass!(B[m
+archi23: [32mPass!(B[m
+archi24: [31mFail on snapshot(B[m
+archi25: [31mFail on snapshot(B[m
+archi26: [31mFail on snapshot(B[m
+archi27: [31mFail on snapshot(B[m
+archi29: [31mFail on snapshot(B[m
+archi30: [31mFail on snapshot(B[m
+archi31: [31mFail on snapshot(B[m
+archi32: [31mFail on snapshot(B[m
+archi33: [32mPass!(B[m
+archi35: [32mPass!(B[m
+archi36: [31mFail on snapshot(B[m
+archi38: [32mPass!(B[m
+archi41: [32mPass!(B[m
+archi42: [31mFail on snapshot(B[m
+archi47: [32mPass!(B[m
+archi48: [31mFail on snapshot(B[m
+archi49: [31mFail on snapshot(B[m
+archi50: [32mPass!(B[m
+bubble_sort: [32mPass!(B[m
+divide: [32mPass!(B[m
+error: [32mPass!(B[m
+fib_r: [32mPass!(B[m
+pipeline1: [32mPass!(B[m
+pipeline2: [32mPass!(B[m
+pipeline3: [32mPass!(B[m
+pipeline4: [32mPass!(B[m
+pipeline5: [32mPass!(B[m
+[32mPass: 21 / 41(B[m

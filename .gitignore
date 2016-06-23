@@ -159,6 +159,8 @@ $RECYCLE.BIN/
 *.o
 */__pycache__/
 .vscode/
+pipeline
+*.rpt
 
 # Not-yet ready for tacked
 simulator/
