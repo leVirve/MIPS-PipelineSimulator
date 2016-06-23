@@ -121,7 +121,7 @@ void ExecuteStage::switcher()
 		case 0x2A: ALUout =  (a < b) ? 1 : 0; break;
 		case 0x00: ALUout =   B << shamt; break; // ? NOP
 		case 0x02: ALUout =   B >> shamt; break;
-		case 0x03: ALUout =   B >= 0 ? B >> shamt : (B >> shamt) | ~(0xFFFFFFFF >> shamt); break;
+		case 0x03: ALUout =   ((int) B) >= 0 ? B >> shamt : (B >> shamt) | ~(0xFFFFFFFF >> shamt); break;
 		case 0x08: ALUout =   A; break; // Jr
 		default:
 			break;
