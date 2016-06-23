@@ -54,8 +54,9 @@ bool MemoryAccessStage::execute()
 		if (_ALUout % 4 == 0) {
 			if (_ALUout < MEMORY_SIZE) MDR = _memory->getWord(_ALUout);
 			printf("[addr %d] MDR %X\n", _ALUout, MDR);
-		} else err_registers[ERR_D_MEM_MISALIGN] = 1;
-		if (_ALUout + 4 >/*=*/ MEMORY_SIZE) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
+		} else 
+            err_registers[ERR_D_MEM_MISALIGN] = 1;
+		if (_ALUout >/*=*/ MEMORY_SIZE - 4) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
 		puts("LW");
 		break;
 	case 0x21:
@@ -63,14 +64,14 @@ bool MemoryAccessStage::execute()
 			if (_ALUout < MEMORY_SIZE) MDR = SignExtImm(_memory->getHalfWord(_ALUout));
 			printf("[addr %d] MDR %X\n", _ALUout, MDR);
 		} else err_registers[ERR_D_MEM_MISALIGN] = 1;
-		if (_ALUout + 2 >/*=*/ MEMORY_SIZE) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
+		if (_ALUout >/*=*/ MEMORY_SIZE - 2) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
 		break;
 	case 0x25:
 		if (_ALUout % 2 == 0) {
 			if (_ALUout < MEMORY_SIZE) MDR = _memory->getHalfWord(_ALUout);
 			printf("[addr %d] MDR %X\n", _ALUout, MDR);
 		} else err_registers[ERR_D_MEM_MISALIGN] = 1;
-		if (_ALUout + 2 >/*=*/ MEMORY_SIZE) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
+		if (_ALUout >/*=*/ MEMORY_SIZE - 2) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
 		break;
 	case 0x20:
 		if (_ALUout < MEMORY_SIZE) {
@@ -92,14 +93,14 @@ bool MemoryAccessStage::execute()
 			if (_ALUout < MEMORY_SIZE) _memory->saveWord(_ALUout, _WriteData);
 			printf("[addr %d] DATA %X\n", _ALUout, _WriteData);
 		} else err_registers[ERR_D_MEM_MISALIGN] = 1;
-		if (_ALUout + 4 >/*=?*/ MEMORY_SIZE) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
+		if (_ALUout >/*=?*/ MEMORY_SIZE - 4) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
 		break;
 	case 0x29:
 		if (_ALUout % 2 == 0) {
 			if (_ALUout < MEMORY_SIZE) _memory->saveHalfWord(_ALUout, _WriteData);
 			printf("[addr %d] DATA %X\n", _ALUout, _WriteData);
 		} else err_registers[ERR_D_MEM_MISALIGN] = 1;
-		if (_ALUout + 2 >/*=*/ MEMORY_SIZE) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
+		if (_ALUout >/*=*/ MEMORY_SIZE - 2) err_registers[ERR_D_MEM_ADDRESS_OVERFLOW] = 1;
 		break;
 	case 0x28:
 		if (_ALUout < MEMORY_SIZE) {

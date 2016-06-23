@@ -27,7 +27,7 @@ archi38: [32mPass!(B[m
 archi41: [32mPass!(B[m
 archi42: [32mPass!(B[m
 archi47: [32mPass!(B[m
-archi48: [31mFail on error_dump(B[m
+archi48: [32mPass!(B[m
 archi49: [31mFail on snapshot(B[m
 archi50: [32mPass!(B[m
 bubble_sort: [32mPass!(B[m
@@ -39,4 +39,4 @@ pipeline2: [32mPass!(B[m
 pipeline3: [32mPass!(B[m
 pipeline4: [32mPass!(B[m
 pipeline5: [32mPass!(B[m
-[32mPass: 33 / 41(B[m
+[32mPass: 34 / 41(B[m
