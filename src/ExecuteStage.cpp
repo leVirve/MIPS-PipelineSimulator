@@ -46,9 +46,12 @@ char* ExecuteStage::check()
         && registers["MEM RegWrite"] == 1
         && registers["MEM Rd"] != 0
         && registers["MEM Rd"] == _Rs)
-	else if ((_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03) && registers["MEM RegWrite"] == 1 && registers["MEM Rd"] != 0 && registers["MEM Rd"] == _Rs)
 		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MEM ALUout"];
-	else if ((_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03) && registers["MEM RegWrite"] == 2 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rs)
+	else if (
+        (_Op != 0x05 && _Op != 0x04 && _Op != 0x02 && _Op != 0x03)
+        && registers["MEM RegWrite"] == 2
+        && registers["MEM Rt"] != 0
+        && registers["MEM Rt"] == _Rs)
 		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MEM ALUout"];
 	else if (registers["MEM RegWrite"] == 3 && registers["MEM Rt"] != 0 && registers["MEM Rt"] == _Rs)
 		sprintf(ip, " fwd_DM-WB_rs_$%d", _Rs), strcat(inp, ip), ReadData1 = exe_readdata1 = registers["MDR"];

@@ -1,9 +1,9 @@
 #include "DecodeStage.h"
 
 DecodeStage::DecodeStage() :
-	_instruction (registers["instruction"]),
+	_instruction (registers["IF/ID instruction"]),
+    _pc(registers["IF PC"]),
 	instruction (registers["ID instruction"]),
-	_pc (registers["IF PC"]),
 	Flush (registers["Flush"]),
 	Stall (registers["Stall"]),
 	PCSrcD (registers["PCSrc"]),
@@ -40,28 +40,28 @@ char* DecodeStage::check()
 	iimmediate  = SignExtImm(_instruction & 0xFFFF);
 	iaddress = _instruction & 0x3FFFFFF;
     switch(iOp) {
-	case 0x00:
+    case RTYPE:
 		iRegWrite = 1; break;
-	case 0x08: case 0x0F: case 0x0C: case 0x0D: case 0x0E: case 0x0A:
-        	iRegWrite = 2; break;
-    	case 0x23: case 0x21: case 0x25: case 0x20: case 0x24:
-        	iRegWrite = 3; break;
-	case 0x2B: case 0x29: case 0x28:
+    case ADDI: case LUI: case ANDI: case ORI: case NORI: case SLTI:
+        iRegWrite = 2; break;
+    case LW: case LH: case LHU: case LB: case LBU:
+        iRegWrite = 3; break;
+    case SW: case SH: case SB:
 		iRegWrite = 4; break;
-    	default: iRegWrite = 0; break;
+    default: iRegWrite = 0; break;
 	}
 	Stall=0;
 	char* inp = new char[1000];
 	char* ip = new char[20];
 	sprintf(inp, "%s", dedecode::de(_instruction));
-	if(registers["ID Op"]!=0x3F && registers["ID RegWrite"]==3 && (registers["ID Rt"] == iRs||(registers["ID Rt"] == iRt) && iRegWrite != 2) && registers["ID Rt"] != 0)
-        strcat(inp, " to_be_stalled"), Stall=1, printf("########## 1\n");
+    if (registers["ID Op"] != 0x3F && registers["ID RegWrite"] == 3 && (registers["ID Rt"] == iRs || (registers["ID Rt"] == iRt) && iRegWrite != 2) && registers["ID Rt"] != 0)
+        strcat(inp, " to_be_stalled"), Stall = 1;
 	else if ((iOp == 0x04 || iOp == 0x05) && registers["ID Op"] != 0x3F && registers["ID RegWrite"] == 1 && (registers["ID Rd"] == iRs || registers["ID Rd"] == iRt) && registers["ID Rd"] != 0)
-        strcat(inp, " to_be_stalled"), Stall=1, printf("########## 2\n");
+        strcat(inp, " to_be_stalled"), Stall=1;
 	else if ((iOp == 0x04 || iOp == 0x05) && registers["ID Op"] != 0x3F && registers["ID RegWrite"] == 2 && (registers["ID Rt"] == iRs || registers["ID Rt"] == iRt) && registers["ID Rt"] != 0)
-        strcat(inp, " to_be_stalled"), Stall=1, printf("########## 3\n");
+        strcat(inp, " to_be_stalled"), Stall=1;
 	else if ((iOp == 0x04 || iOp == 0x05) && registers["EXE Op"] != 0x3F && registers["EXE RegWrite"] == 3 && (registers["EXE Rt"] == iRs || registers["EXE Rt"] == iRt) && registers["EXE Rt"] != 0)
-        strcat(inp, " to_be_stalled"), Stall=1, printf("########## 4\n");
+        strcat(inp, " to_be_stalled"), Stall=1;
 
     if(!Stall){
 		if (registers["EXE RegWrite"] == 1 && registers["EXE Rd"] != 0 && registers["EXE Rd"] == iRs && (iOp == 0x05 || iOp == 0x04))
@@ -151,15 +151,6 @@ bool DecodeStage::execute()
 	if (iOp == 0x02) PCJumpD = PCtemp, PCSrcD = PC_JUMP; // j
 	if (iOp == 0x03) PCJumpD = PCtemp, PCSrcD = PC_JUMP; // jal
     if(iOp == 0x04 || iOp == 0x05) if (isOverflow(_pc, BranchAdrr(immediate))) err_registers[ERR_NUMBER_OVERFLOW] = 1;
-	printf("\n--- ID Stage ---\n");
-	printf("<<<<%X>>>>\n", PCtemp);
-	printf("Opcode = %X func = %X\n", Op, func);
-	printf("PCSrc = %d\n", PCSrcD);
-	printf("Rs: 0x%d, Rt: 0x%d, Rd: 0x%d\n", Rs, Rt, Rd);
-	printf("Imm: 0x%X(%d) Address: 0x%X\n", immediate, (int)immediate, address);
-	printf("%X + %X = %X\n", _pc, BranchAdrr(immediate), BranchAdrr(immediate) + _pc);
-	printf("ReadData1: 0x%X\tReadData2: 0x%X\n", ReadData1, ReadData2);
-	printf("Instruction: 0x%08x\n", instruction);
 	return false;
 }
 

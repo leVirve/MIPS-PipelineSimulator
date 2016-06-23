@@ -6,7 +6,7 @@ ErrorRegister err_registers;
 FILE* snapshot = fopen(SNAPSHOT, "w");
 FILE* err_dump = fopen(ERR_DUMP, "w");
 
-Simulator::Simulator(int argc, const char**argv)
+Simulator::Simulator(int argc, const char** argv)
 {
     pc = sp = 0;
     cycle = 0;
@@ -65,7 +65,6 @@ void Simulator::simulate()
             if (halt) break;
         }
         if (halt) break;
-        printf("halt %d\n", halt);
     }
 }
 

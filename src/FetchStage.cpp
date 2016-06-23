@@ -9,7 +9,7 @@ FetchStage::FetchStage() :
     _PCJumpD (registers["PCJumpD"]),
     _Flush (registers["Flush"]),
     _Stall (registers["Stall"]),
-    instruction (registers["instruction"]),
+    instruction (registers["IF/ID instruction"]),
     pc (registers["IF PC"]) {
     }
 
@@ -21,8 +21,6 @@ char* FetchStage::check()
         (raw >> 8) & 0xff00 |
         (raw << 8) & 0xff0000 |
         (raw << 24) & 0xff000000;
-
-    // Write into IF/ID registers
 
     char* inp = new char[1000];
     sprintf(inp, "0x%08X", _instruction);
@@ -39,8 +37,6 @@ bool FetchStage::execute()
 {
 
     if(!_Stall)instruction = _instruction;
-    printf("\n--- IF Stage ---\n");
-    printf("PC: 0x%08x\n PCSrc =  %d (_Stall: %d, _Flush: %d)\n", pc, _PCSrcD, _Stall, _Flush);
     //UINT32 raw = memory->getInstruction(pc);
     if (_pc >= MEMORY_SIZE) err_registers[ERR_I_MEM_ADDRESS_OVERFLOW] = 1;
     if (_pc % 4 != 0) err_registers[ERR_I_MEM_MISALIGN] = 1;
@@ -69,8 +65,5 @@ bool FetchStage::execute()
 
     // Write into IF/ID registers
     instruction = _instruction;*/
-
-    printf("PC: 0x%08x\n", pc);
-    printf("Instruction: 0x%08x\n", instruction);
     return false;
 }

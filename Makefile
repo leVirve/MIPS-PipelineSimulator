@@ -37,5 +37,13 @@ RegisterFile.o: ./src/RegisterFile.cpp
 Register.o: ./src/Register.cpp
 	g++ -c ./src/Register.cpp
 
+run:
+	sh run.sh
+
 clean:
 	rm -f *.o $(TARGET)
+	rm *.rpt
+	rm *.stackdump
+
+todo:
+	@echo "archi10"
