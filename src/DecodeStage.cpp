@@ -56,6 +56,8 @@ char* DecodeStage::check()
 	sprintf(inp, "%s", dedecode::de(_instruction));
     if (registers["ID Op"] != 0x3F && registers["ID RegWrite"] == 3 && (registers["ID Rt"] == iRs || (registers["ID Rt"] == iRt) && iRegWrite != 2) && registers["ID Rt"] != 0)
         strcat(inp, " to_be_stalled"), Stall = 1;
+    else if (iOp == 0x0 && ifunc == 0x08 && registers["EXE RegWrite"] == 3 && registers["EXE Rt"] == iRs && registers["EXE Rt"] != 0)
+        strcat(inp, " to_be_stalled"), Stall = 1;
 	else if ((iOp == 0x04 || iOp == 0x05) && registers["ID Op"] != 0x3F && registers["ID RegWrite"] == 1 && (registers["ID Rd"] == iRs || registers["ID Rd"] == iRt) && registers["ID Rd"] != 0)
         strcat(inp, " to_be_stalled"), Stall=1;
 	else if ((iOp == 0x04 || iOp == 0x05) && registers["ID Op"] != 0x3F && registers["ID RegWrite"] == 2 && (registers["ID Rt"] == iRs || registers["ID Rt"] == iRt) && registers["ID Rt"] != 0)
@@ -122,6 +124,7 @@ bool DecodeStage::execute()
         shamt=0;
         immediate=0;
         address=0;
+        RegWrite = 0;
     }else {
         instruction = _instruction;
         Rs=iRs;
